@@ -75,7 +75,7 @@ def metric(text):
                       "meters", "meters", "ten meters", "kilometers", "80 kilometers", "twenty centimeters",
                       "four hundred square meters", "twenty centimeters", "fifty centimeters",
                       "just a centimeter before that, but I misjudged. It turns out that Aozaki's physical size was slightly greater than my visual information.",
-                      "350,000㎡"]
+                      "350,000 square meters"]
 
     for i in range (len(indices)):
         text[indices[i]-1] = text[indices[i]-1].replace(imperial_strings[i], metric_strings[i])
