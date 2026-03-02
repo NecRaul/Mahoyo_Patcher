@@ -24,7 +24,8 @@ def metric(text):
                18328, 18329, 18340, 18383, 20479,
                20786, 20930, 21087, 22576, 22577, 23065,
                14811, 4486, 1485,
-               11505]
+               11505,
+               3955]
     imperial_strings = ["43 degrees Fahrenheit", "thirty-foot", "over three feet", "45 miles", "miles",
                         "yards", "15 feet", "was a good few feet in length", "6 feet", "a few feet",
                         "ten feet", "a few feet", "yards", "thirty feet", "greater than a football field",
@@ -48,7 +49,8 @@ def metric(text):
                         "thirty feet", "thirty feet", "three feet", "three feet", "seventy-pound",
                         "yards", "yards", "thirty feet", "miles", "50 miles", "eight inches",
                         "twelve hundred square foot", "a foot to his left", "a foot and a half",
-                        "myself, but I think my brain had a major malfunction, and my hand just went for it!"]
+                        "myself, but I think my brain had a major malfunction, and my hand just went for it!",
+                        "more than eighty-five square acres"]
     metric_strings = ["6 degrees Celsius", "ten-meter", "around one meter", "70 kilometers", "kilometers",
                       "meters", "five meters", "stretched out several meters", "two meters", "one meter",
                       "several meters", "one meter", "meters", "ten meters", "about a hundred meters",
@@ -72,7 +74,8 @@ def metric(text):
                       "ten meters", "ten meters", "a meter", "a meter", "thirty-kilo",
                       "meters", "meters", "ten meters", "kilometers", "80 kilometers", "twenty centimeters",
                       "four hundred square meters", "twenty centimeters", "fifty centimeters",
-                      "just a centimeter before that, but I misjudged. It turns out that Aozaki's physical size was slightly greater than my visual information."]
+                      "just a centimeter before that, but I misjudged. It turns out that Aozaki's physical size was slightly greater than my visual information.",
+                      "350,000㎡"]
 
     for i in range (len(indices)):
         text[indices[i]-1] = text[indices[i]-1].replace(imperial_strings[i], metric_strings[i])
@@ -122,7 +125,7 @@ def honorifics(text_en, text_jp):
                       "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu", "Hanazawa", "Eiri",
                       "Zaki", "Alice", "Yui", "Toko", "Ako", "Yui", "Aozaki", "Soujuurou", "Arisato",
                       "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino"]
-    en_honorific = ["-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi"]
+    en_honorific = ["-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun"]
 
     jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司", "鳶丸",
                       "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨", "周瀬",
@@ -131,7 +134,7 @@ def honorifics(text_en, text_jp):
                       "魚達", "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "唯",
                       "<蒼崎|あおざき>", "うじゅうろう>", "有里", "城|やましろ>",
                       "中|さとなか>", "里中", "<美濃|みの>", "み><濃|の>"]
-    jp_honorific = ["さん", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏"]
+    jp_honorific = ["さん", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン"]
 
     line_count = 0
     for line_jp in text_jp:
@@ -155,10 +158,11 @@ def honorifics_special(text_en, text_jp):
     # アッちゃん - Allie
     # アコちゃん - Aoko
     # ペン太くん - Flippy
+    # 先生 - Sir
 
-    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん"]
-    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun"]
-    en_name = ["Allie", "Aoko", "Flippy"]
+    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生"]
+    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei"]
+    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir"]
 
     for i in range(0, len(en_name) - 1):
         line_count = 0
@@ -175,6 +179,18 @@ def honorifics_special(text_en, text_jp):
     text_en[463] = text_en[463].replace("Miss", "-san")
     # But should I use an honorific with you?
     text_en[466] = text_en[466].replace("What do you mean, what do I mean?", "How I'm gonna call you. Is it fine if I use '-kun'?")
+    # Yamashirooo -> Mr. Yamashirooo
+    text_en[1756] = text_en[1756].replace("Mr. Yamashirooo!", "Yamashirooo!")
+    # Yuika introduction
+    text_en[1799] = text_en[1799].replace("Sister Yuika", "Yuika-san")
+    # Hanazawa-sa-
+    text_en[1985] = text_en[1985].replace("Ms. Hanazawa", "Hanazawa-san")
+    # Hanazawa-san takes her leave
+    #text_en[1987] = text_en[1987].replace("Catch you later", "Hanazawa-san takes her leave")
+    # Tsukiji introduction
+    text_en[2238] = text_en[2238].replace("Tsukiji", "Tsukiji-kun")
+    # Caps Lock
+    text_en[2683] = text_en[2683].replace("AOKO AOZAKI", "AOZAKI AOKO")
 
     return text_en
 
@@ -182,6 +198,8 @@ def americanisms(text):
 
     # 11th Grade => 2nd Year
     text[559] = text[559].replace("11th grade", "2nd year")
+    # Freshman -> 1st Year
+    text[2387] = text[2387].replace("freshman", "first-year")
 
     return text
 
@@ -189,6 +207,18 @@ def translation_mistakes(text):
 
     # Get him out of his head
     text[964] = text[964].replace("get him out of his head", "get him out of her head")
+    # Missing "to"
+    text[2792] = text[2792].replace("use them", "use them to")
+    # To look of pity -> the look of pity
+    text[3395] = text[3395].replace("to look", "the look")
+    # missing "the"
+    text[3437] = text[3437].replace("unassuming", "the unassuming")
+    # missing "the"
+    text[3471] = text[3471].replace("keeper", "the keeper")
+    # You're weren't
+    text[3747] = text[3747].replace("You're", "You")
+    # missing "to"
+    text[3898] = text[3898].replace("seemed", "seemed to")
 
     return text
 
