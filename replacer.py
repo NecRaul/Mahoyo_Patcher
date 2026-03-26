@@ -25,7 +25,7 @@ def metric(text):
                20786, 20930, 21087, 22576, 22577, 23065,
                14811, 4486, 1485,
                11505,
-               3955]
+               3955, 6007, 11727]
     imperial_strings = ["43 degrees Fahrenheit", "thirty-foot", "over three feet", "45 miles", "miles",
                         "yards", "15 feet", "was a good few feet in length", "6 feet", "a few feet",
                         "ten feet", "a few feet", "yards", "thirty feet", "greater than a football field",
@@ -50,7 +50,7 @@ def metric(text):
                         "yards", "yards", "thirty feet", "miles", "50 miles", "eight inches",
                         "twelve hundred square foot", "a foot to his left", "a foot and a half",
                         "myself, but I think my brain had a major malfunction, and my hand just went for it!",
-                        "more than eighty-five square acres"]
+                        "more than eighty-five square acres", "238,900 miles", "38 miles"]
     metric_strings = ["6 degrees Celsius", "ten-meter", "around one meter", "70 kilometers", "kilometers",
                       "meters", "five meters", "stretched out several meters", "two meters", "one meter",
                       "several meters", "one meter", "meters", "ten meters", "about a hundred meters",
@@ -75,7 +75,7 @@ def metric(text):
                       "meters", "meters", "ten meters", "kilometers", "80 kilometers", "twenty centimeters",
                       "four hundred square meters", "twenty centimeters", "fifty centimeters",
                       "just a centimeter before that, but I misjudged. It turns out that Aozaki's physical size was slightly greater than my visual information.",
-                      "350,000 square meters"]
+                      "350,000 square meters", "384,400 kilometers", "60 kilometers"]
 
     for i in range (len(indices)):
         text[indices[i]-1] = text[indices[i]-1].replace(imperial_strings[i], metric_strings[i])
@@ -124,8 +124,8 @@ def honorifics(text_en, text_jp):
                       "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko", "May", "Riddell", "Archelot",
                       "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu", "Hanazawa", "Eiri",
                       "Zaki", "Alice", "Yui", "Toko", "Ako", "Yui", "Aozaki", "Soujuurou", "Arisato",
-                      "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino"]
-    en_honorific = ["-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun"]
+                      "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy"]
+    en_honorific = ["-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun", "-sensei", "-sensei"]
 
     jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司", "鳶丸",
                       "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨", "周瀬",
@@ -133,8 +133,8 @@ def honorifics(text_en, text_jp):
                       "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>",
                       "魚達", "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "唯",
                       "<蒼崎|あおざき>", "うじゅうろう>", "有里", "城|やましろ>",
-                      "中|さとなか>", "里中", "<美濃|みの>", "み><濃|の>"]
-    jp_honorific = ["さん", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン"]
+                      "中|さとなか>", "里中", "<美濃|みの>", "み><濃|の>", "キッツィー"]
+    jp_honorific = ["さん", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン", "センセ", "せんせい"]
 
     line_count = 0
     for line_jp in text_jp:
@@ -191,6 +191,19 @@ def honorifics_special(text_en, text_jp):
     text_en[2238] = text_en[2238].replace("Tsukiji", "Tsukiji-kun")
     # Caps Lock
     text_en[2683] = text_en[2683].replace("AOKO AOZAKI", "AOZAKI AOKO")
+    # Kitsy-chan and Kitsy Land in the same line. Basing on the mess I create since this will run after
+    text_en[3973] = text_en[3973].replace("mascot Kitsy-chan, retired, and Kitsy-chan Land's", "mascot Kitsy-chan, retired, and Kitsy Land's")
+    # Mr. Yamashiro -> sensei
+    text_en[8590] = text_en[8590].replace("Mr. Yamashiro", "sensei")
+    # sir -> sensei
+    text_en[8591] = text_en[8591].replace("sir", "sensei")
+    # sir -> sensei || restore the missing "Yamashiro"
+    text_en[8620] = text_en[8620].replace("sensei", "Yamashiro-sensei")
+    # Yamase -> Yamase-san
+    text_en[11421] = text_en[11421].replace("Yamase", "Yamase-san")
+    # Fix these two broken lines
+    text_en[11484] = text_en[11484].replace("Kinomi-kun", "Kinomi")
+    text_en[11485] = text_en[11485].replace("Kinomi", "Kinomi-kun")
 
     return text_en
 
