@@ -164,7 +164,7 @@ class PatchWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Mahoyo Patcher v1.3")
+        self.setWindowTitle("Mahoyo Patcher v1.4")
         self.setMinimumWidth(480)
 
         # --- NEW ICON CODE ---

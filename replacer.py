@@ -96,6 +96,13 @@ def romanization(text):
     # Edge Cases
     # "The 'jyu' in your name"
     text[1917] = text[1917].replace("jyu", "juu")
+    # Si -> Shi
+    text[15548] = text[15548].replace("Si", "Shi")
+    # Sou...jyuro... -> Sou...juurou...
+    text[18757] = text[18757].replace("jyuro", "juurou")
+    # Touko -> Toko ### It's how Ritsuka calls Touko
+    text[20888] = text[20888].replace("Touko", "Toko")
+
 
     return text
 
@@ -118,22 +125,20 @@ def name_order(text):
 
 def honorifics(text_en, text_jp):
     en_name_prefix = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
-    en_proper_name = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko",
-                      "Tsukiji", "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf",
-                      "Beo", "Fumizuka", "Eiri", "Suse", "Ritsuka", "Yuika", "Sister", "Sister",
-                      "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko", "May", "Riddell", "Archelot",
-                      "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu", "Hanazawa", "Eiri",
-                      "Zaki", "Alice", "Yui", "Toko", "Ako", "Yui", "Aozaki", "Soujuurou", "Arisato",
-                      "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
+    en_proper_name = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
+                      "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf", "Beo", "Fumizuka", "Eiri",
+                      "Suse", "Ritsuka", "Yuika", "Sister", "Sister", "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko",
+                      "May", "Riddell", "Archelot", "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu",
+                      "Hanazawa", "Eiri", "Zaki", "Alice", "Yui", "Toko", "Ako", "Aozaki", "Soujuurou",
+                      "Arisato", "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
     en_honorific = ["-san", "-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun", "-sensei", "-sensei"]
 
-    jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司", "鳶丸",
-                      "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨", "周瀬",
-                      "律架", "唯架", "唯架", "シスター", "山城", "和樹", "土桔", "由里彦", "メイ", "リデル",
-                      "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>",
-                      "魚達", "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "唯",
-                      "<蒼崎|あおざき>", "うじゅうろう>", "有里", "城|やましろ>",
-                      "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
+    jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
+                      "鳶丸", "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨",
+                      "周瀬", "律架", "唯架", "唯架", "シスター", "山城", "和樹", "土桔", "由里彦",
+                      "メイ", "リデル", "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>", "魚達",
+                      "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "<蒼崎|あおざき>", "うじゅうろう>",
+                      "有里", "城|やましろ>", "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
     jp_honorific = ["さん", "サン", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン", "センセ", "せんせい"]
 
     line_count = 0
@@ -160,11 +165,11 @@ def honorifics_special(text_en, text_jp):
     # ペン太くん - Flippy
     # 先生 - Sir
 
-    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生"]
-    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei"]
-    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir"]
+    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生", "トコちゃん", "唯ちゃん", "唯ちゃん","土桔由里彦氏" ,"土桔由里彦", "唯架"]
+    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei", "Toko-chan", "Yui-chan", "Yui-chan", "Tokitsu Yurihiko-shi", "Tokitsu Yurihiko", "Yuika"]
+    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir", "Touko", "Yuika", "Yui", "Mr. Tokitsu", "Mr. Tokitsu", "Sister"]
 
-    for i in range(0, len(en_name) - 1):
+    for i in range(0, len(en_name)):
         line_count = 0
         for line_jp in text_jp:
             if jp_name[i] in line_jp:
@@ -214,6 +219,44 @@ def honorifics_special(text_en, text_jp):
     text_en[19800] = text_en[19800].replace("Miss Alice", "Alice-san")
     # Soujuurou -> Soujuurou-kun - Special case where the name in JP and in EN are in different lines
     text_en[13657] = text_en[13657].replace("Soujuurou", "Soujuurou-kun")
+    # Shizuki... -> Shizuki...kun...
+    text_en[15341] = text_en[15341].replace("Shizuki...", "Shizuki...kun...")
+    # Ritsuka -> Ritsuka-san
+    text_en[15621] = text_en[15621].replace("Ritsuka", "Ritsuka-san")
+    # Shizuki -> Shizuki-kun
+    text_en[23506] = text_en[23506].replace("Shizuki", "Shizuki-kun")
+    # Kumari -> Kumari-kun
+    text_en[23214] = text_en[23214].replace("Kumari", "Kumari-kun")
+    # Mr. Yamashiro -> Yamashiro
+    text_en[23241] = text_en[23241].replace("Mr. ", "")
+    # Kinomi -> Kinomi-kun
+    text_en[23247] = text_en[23247].replace("Kinomi", "Kinomi-kun")
+    # Yui -> Yui-chan
+    text_en[23881] = text_en[23881].replace("Yui", "Yui-chan")
+    # Ritsuka -> Ritsuka-san
+    text_en[23889] = text_en[23889].replace("Ritsuka", "Ritsuka-san")
+    # May -> Riddell-san
+    text_en[21952] = text_en[21952].replace("May", "Riddell-san")
+    # Mr. Tokitsu -> Tokitsu-san
+    text_en[21957] = text_en[21957].replace("Mr. Tokitsu", "Tokitsu-san")
+    # Mr. Tokitsu -> Tokitsu
+    text_en[22028] = text_en[22028].replace("Mr. Tokitsu", "Tokitsu")
+    # Miss Kuonji -> Kuonji-san
+    text_en[22306] = text_en[22306].replace("Kuonji", "Kuonji-san")
+    # Mr. Yamashiro -> Yamashiro-sensei
+    text_en[21567] = text_en[21567].replace("Mr. Yamashiro", "Yamashiro-sensei")
+    # Sister -> Yuika
+    text_en[21573] = text_en[21573].replace("Sister", "Yuika")
+    # Sister-san Yuika-san -> Yuika-san ### Sister wasn't in the original text
+    text_en[21575] = text_en[21575].replace("Sister-san ", "")
+    # Mr. Yamashiro -> Yamashiro
+    text_en[21581] = text_en[21581].replace("Mr. ", "")
+    # Mr. Yamashiro -> Yamashiro
+    text_en[21583] = text_en[21583].replace("Mr. ", "")
+    # Mr. Yamashiro -> Yamashiro
+    text_en[21658] = text_en[21658].replace("Mr. ", "")
+    # Mr. Yamashiro -> Sensei
+    text_en[22845] = text_en[22845].replace("Mr. Yamashiro", "Sensei")
 
     return text_en
 
@@ -249,6 +292,14 @@ def translation_mistakes(text):
     text[3898] = text[3898].replace("seemed", "seemed to")
     # Alice -> Aoko ### How do you make an error like this? Don't they have proofreaders? And they never fixed this?!
     text[14419] = text[14419].replace("Alice", "Aoko")
+    # missing "m"
+    text[15170] = text[15170].replace("with y mouth", "with my mouth")
+    # missing "throw"
+    text[16504] = text[16504].replace("to those", "to throw those")
+    # missing "what"
+    text[18823] = text[18823].replace("people", "what people")
+    # missing "Aozaki". Not really an error, but I would consider a mistake since the contrast was intended,
+    text[19515] = text[19515].replace("so mad", "so mad, Aozaki")
 
     return text
 
