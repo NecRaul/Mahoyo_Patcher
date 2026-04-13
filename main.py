@@ -155,6 +155,8 @@ class PatchWorker(QThread):
         bak_path = self.hfa_path + ".bak"
         if not os.path.exists(bak_path):
             shutil.copy2(self.hfa_path, bak_path)
+        else:
+            shutil.copy2(bak_path, self.hfa_path)
 
 
 # -----------------------
@@ -164,7 +166,7 @@ class PatchWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Mahoyo Patcher v1.4")
+        self.setWindowTitle("Mahoyo Patcher v1.5")
         self.setMinimumWidth(480)
 
         # --- NEW ICON CODE ---

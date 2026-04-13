@@ -124,10 +124,11 @@ def name_order(text):
     return text
 
 def honorifics(text_en, text_jp):
+    text_en = honorifics_special_pre(text_en, text_jp)
     en_name_prefix = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
     en_proper_name = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
                       "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf", "Beo", "Fumizuka", "Eiri",
-                      "Suse", "Ritsuka", "Yuika", "Sister", "Sister", "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko",
+                      "Suse", "Ritsuka", "Yuika", "Sister", "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko",
                       "May", "Riddell", "Archelot", "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu",
                       "Hanazawa", "Eiri", "Zaki", "Alice", "Yui", "Toko", "Ako", "Aozaki", "Soujuurou",
                       "Arisato", "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
@@ -135,7 +136,7 @@ def honorifics(text_en, text_jp):
 
     jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
                       "鳶丸", "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨",
-                      "周瀬", "律架", "唯架", "唯架", "シスター", "山城", "和樹", "土桔", "由里彦",
+                      "周瀬", "律架", "唯架", "シスター", "山城", "和樹", "土桔", "由里彦",
                       "メイ", "リデル", "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>", "魚達",
                       "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "<蒼崎|あおざき>", "うじゅうろう>",
                       "有里", "城|やましろ>", "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
@@ -165,9 +166,9 @@ def honorifics_special(text_en, text_jp):
     # ペン太くん - Flippy
     # 先生 - Sir
 
-    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生", "トコちゃん", "唯ちゃん", "唯ちゃん","土桔由里彦氏" ,"土桔由里彦", "唯架"]
-    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei", "Toko-chan", "Yui-chan", "Yui-chan", "Tokitsu Yurihiko-shi", "Tokitsu Yurihiko", "Yuika"]
-    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir", "Touko", "Yuika", "Yui", "Mr. Tokitsu", "Mr. Tokitsu", "Sister"]
+    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生", "トコちゃん", "唯ちゃん", "唯ちゃん"]
+    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei", "Toko-chan", "Yui-chan", "Yui-chan"]
+    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir", "Touko", "Yuika", "Yui"]
 
     for i in range(0, len(en_name)):
         line_count = 0
@@ -256,7 +257,24 @@ def honorifics_special(text_en, text_jp):
     # Mr. Yamashiro -> Yamashiro
     text_en[21658] = text_en[21658].replace("Mr. ", "")
     # Mr. Yamashiro -> Sensei
-    text_en[22845] = text_en[22845].replace("Mr. Yamashiro", "Sensei")
+    text_en[22844] = text_en[22844].replace("Mr. Yamashiro", "Sensei")
+    # Miss Kuonji -> Kuonji-san
+    text_en[23369] = text_en[23369].replace("Miss Kuonji", "Kuonji-san")
+
+    return text_en
+
+def honorifics_special_pre(text_en, text_jp):
+    jp_name = ["土桔由里彦氏", "土桔由里彦", "唯架さん", "唯架"]
+    en_name_honorific = ["Tokitsu Yurihiko-shi", "Tokitsu Yurihiko", "Yuika-san", "Yuika"]
+    en_name = ["Mr. Tokitsu", "Mr. Tokitsu", "Sister Yuika", "Sister"]
+
+    for i in range(0, len(en_name)):
+        line_count = 0
+        for line_jp in text_jp:
+            if jp_name[i] in line_jp:
+                if (en_name[i] in text_en[line_count]):
+                    text_en[line_count] = text_en[line_count].replace(en_name[i], en_name_honorific[i])
+            line_count = line_count + 1
 
     return text_en
 
@@ -300,6 +318,10 @@ def translation_mistakes(text):
     text[18823] = text[18823].replace("people", "what people")
     # missing "Aozaki". Not really an error, but I would consider a mistake since the contrast was intended,
     text[19515] = text[19515].replace("so mad", "so mad, Aozaki")
+    # he -> she
+    text[21765] = text[21765].replace("then he'd", "then she'd")
+    # missing "be"
+    text[21768] = text[21768].replace("had to unlucky", "had to be unlucky")
 
     return text
 
