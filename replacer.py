@@ -1,4 +1,5 @@
 import os
+import re
 
 def metric(text):
     indices = [89, 113, 1482, 1602, 1604,
@@ -124,11 +125,12 @@ def name_order(text):
     return text
 
 def honorifics(text_en, text_jp):
-    text_en = honorifics_special_pre(text_en, text_jp)
+    text_en = honorifics_yuika(text_en, text_jp)
+    text_en = honorifics_yamashiro(text_en, text_jp)
     en_name_prefix = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
     en_proper_name = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
                       "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf", "Beo", "Fumizuka", "Eiri",
-                      "Suse", "Ritsuka", "Yuika", "Sister", "Yamashiro", "Kazuki", "Tokitsu", "Yurihiko",
+                      "Suse", "Ritsuka", "Yuika", "Sister", "Kazuki", "Tokitsu", "Yurihiko",
                       "May", "Riddell", "Archelot", "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu",
                       "Hanazawa", "Eiri", "Zaki", "Alice", "Yui", "Toko", "Ako", "Aozaki", "Soujuurou",
                       "Arisato", "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
@@ -136,7 +138,7 @@ def honorifics(text_en, text_jp):
 
     jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
                       "鳶丸", "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨",
-                      "周瀬", "律架", "唯架", "シスター", "山城", "和樹", "土桔", "由里彦",
+                      "周瀬", "律架", "唯架", "シスター", "和樹", "土桔", "由里彦",
                       "メイ", "リデル", "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>", "魚達",
                       "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "<蒼崎|あおざき>", "うじゅうろう>",
                       "有里", "城|やましろ>", "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
@@ -166,9 +168,9 @@ def honorifics_special(text_en, text_jp):
     # ペン太くん - Flippy
     # 先生 - Sir
 
-    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生", "トコちゃん", "唯ちゃん", "唯ちゃん"]
-    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei", "Toko-chan", "Yui-chan", "Yui-chan"]
-    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir", "Touko", "Yuika", "Yui"]
+    jp_name = ["アッちゃん", "アコちゃん", "ペン太くん", "先生", "先生", "トコちゃん", "唯ちゃん", "唯ちゃん", "土桔由里彦氏", "土桔由里彦"]
+    en_name_honorific = ["Acchan", "Ako-chan", "Penta-kun", "sensei", "Sensei", "Toko-chan", "Yui-chan", "Yui-chan", "Tokitsu Yurihiko-shi", "Tokitsu Yurihiko"]
+    en_name = ["Allie", "Aoko", "Flippy", "sir", "Sir", "Touko", "Yuika", "Yui", "Mr. Tokitsu", "Mr. Tokitsu"]
 
     for i in range(0, len(en_name)):
         line_count = 0
@@ -188,7 +190,7 @@ def honorifics_special(text_en, text_jp):
     # Yamashirooo -> Mr. Yamashirooo
     text_en[1756] = text_en[1756].replace("Mr. Yamashirooo!", "Yamashirooo!")
     # Yuika introduction
-    text_en[1799] = text_en[1799].replace("Sister Yuika", "Yuika-san")
+    text_en[1799] = text_en[1799].replace("Yuika", "Yuika-san")
     # Hanazawa-sa-
     text_en[1985] = text_en[1985].replace("Ms. Hanazawa", "Hanazawa-san")
     # Hanazawa-san takes her leave
@@ -204,7 +206,7 @@ def honorifics_special(text_en, text_jp):
     # sir -> sensei
     text_en[8591] = text_en[8591].replace("sir", "sensei")
     # sir -> sensei || restore the missing "Yamashiro"
-    text_en[8620] = text_en[8620].replace("sensei", "Yamashiro-sensei")
+    #text_en[8620] = text_en[8620].replace("sensei", "Yamashiro-sensei")
     # Yamase -> Yamase-san
     text_en[11421] = text_en[11421].replace("Yamase", "Yamase-san")
     # Fix these two broken lines
@@ -214,6 +216,22 @@ def honorifics_special(text_en, text_jp):
     text_en[11554] = text_en[11554].replace("Mino", "senpai")
     # Yuika-san
     text_en[12642] = text_en[12642].replace("Yuika", "Yuika-san")
+    # Sister -> The Sister
+    text_en[12649] = text_en[12649].replace("Sister", "The Sister")
+    # Sister -> Sister Yuika ### Because of the way they rewrote this line in English
+    text_en[12659] = text_en[12659].replace("Sister", "The Sister")
+    # Sister -> Sister Yuika ### Because of the way they rewrote this line in English
+    text_en[12681] = text_en[12681].replace("Sister", "the Sister")
+    # Sister -> Sister Yuika ### Because of the way they rewrote this line in English
+    text_en[12696] = text_en[12696].replace("Sister", "the Sister")
+    # Sister -> Sister Yuika ### Because of the way they rewrote this line in English
+    text_en[12698] = text_en[12698].replace("Sister", "the Sister")
+    # Sister -> Sister Yuika ### Because of the way they rewrote this line in English
+    text_en[12700] = text_en[12700].replace("Sister", "The Sister")
+    # Sister -> Sister Yuika ### Because of the way they wrote this line in English
+    text_en[16616] = text_en[16616].replace("Sister", "The Sister")
+    # Sister -> Sister Yuika ### Because of the way they wrote this line in English
+    text_en[16650] = text_en[16650].replace("Sister", "the Sister")
     # someone like Aoko -> Aoko (helps with the line break while being technically more accurate)
     text_en[19767] = text_en[19767].replace("someone like Aoko", "Aoko")
     # Miss Alice -> Alice-san - Special case where the name in JP and in EN are in different lines
@@ -260,21 +278,141 @@ def honorifics_special(text_en, text_jp):
     text_en[22844] = text_en[22844].replace("Mr. Yamashiro", "Sensei")
     # Miss Kuonji -> Kuonji-san
     text_en[23369] = text_en[23369].replace("Miss Kuonji", "Kuonji-san")
+    # Yuika -> Sister Yuika
+    text_en[23896] = text_en[23896].replace("Yuika", "Sister Yuika")
+    # Yuika -> Sister Yuika
+    text_en[20971] = text_en[20971].replace("Yuika", "Sister Yuika")
+    # Yuika Yuika -> Suse Yuika
+    text_en[21083] = text_en[21083].replace("Yuika Yuika", "Suse Yuika")
+    # Sister -> Sister Yuika ### Because of the way they wrote this line in English
+    text_en[21090] = text_en[21090].replace("Sister", "The Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21093] = text_en[21093].replace("Sister", "The Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21099] = text_en[21099].replace("Sister", "the Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21101] = text_en[21101].replace("Sister", "the Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21113] = text_en[21113].replace("Sister", "The Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21136] = text_en[21136].replace("Sister", "the Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[21154] = text_en[21154].replace("Sister", "the Sister")
+    # Sister -> The Sister ### Because of the way they wrote this line in English
+    text_en[24051] = text_en[24051].replace("Sister", "The Sister")
+    # Yuika -> Suse Yuika
+    text_en[24088] = text_en[24088].replace("Yuika", "Suse Yuika")
+    # Yuika -> Suse Yuika
+    text_en[24113] = text_en[24113].replace("Yuika", "Suse Yuika")
+    # Yamashiro -> Mr. Yamashiro (thanks to the new Yamashiro function)
+    text_en[166] = text_en[166].replace("Yamashiro", "Mr. Yamashiro")
+    # Mr. Yamashiro -> Sensei
+    text_en[22845] = text_en[22845].replace("Mr. Yamashiro", "Sensei")
 
     return text_en
 
-def honorifics_special_pre(text_en, text_jp):
-    jp_name = ["土桔由里彦氏", "土桔由里彦", "唯架さん", "唯架"]
-    en_name_honorific = ["Tokitsu Yurihiko-shi", "Tokitsu Yurihiko", "Yuika-san", "Yuika"]
-    en_name = ["Mr. Tokitsu", "Mr. Tokitsu", "Sister Yuika", "Sister"]
 
-    for i in range(0, len(en_name)):
-        line_count = 0
-        for line_jp in text_jp:
-            if jp_name[i] in line_jp:
-                if (en_name[i] in text_en[line_count]):
-                    text_en[line_count] = text_en[line_count].replace(en_name[i], en_name_honorific[i])
-            line_count = line_count + 1
+def honorifics_yuika(text_en, text_jp):
+    # 1. Map JP text directly to the exact desired EN output.
+    # Order matters: we put the longest/most specific names first
+    # so "シスター唯架" is caught before just "シスター" or "唯架".
+    jp_target_mapping = [
+        ("シスター唯架", "Sister Yuika"),
+        ("周瀬唯架", "Suse Yuika"),
+        ("<周|す><瀬|せ><唯架|ゆいか>", "Suse Yuika"),
+        ("<唯架|ゆいか>", "Yuika"),
+        ("唯架さん", "Yuika-san"),
+        ("周瀬さん", "Suse-san"),
+        ("唯ちゃん", "Yui-chan"),
+        ("唯架", "Yuika"),
+        ("周瀬", "Suse"),
+        ("ユイカ", "Yuika"),
+        ("シスター", "Sister")
+    ]
+
+    # 2. List all the inconsistent ways the English text refers to her.
+    # We include your bugged outputs too, so this script cleans them up if they exist!
+    en_aliases = [
+        "Sister-san Yuika-san",
+        "Yuika Yuika",
+        "Suse Yuika",
+        "Sister Yuika-san",
+        "Sister-san Yuika",
+        "Sister Yuika",
+        "Sister-san",
+        "Miss Yuika",
+        "Ms. Yuika",
+        "Ms. Suse",
+        "Yuika-san",
+        "Suse-san",
+        "Yui-chan",
+        "Sister",
+        "Yuika",
+        "Suse",
+        "Yui"
+    ]
+
+    # Sort the English aliases by length (longest first) so regex checks "Sister Yuika" before "Sister"
+    en_aliases_sorted = sorted(en_aliases, key=len, reverse=True)
+
+    # Build a regex pattern to match these exactly as whole words.
+    # This is case-sensitive by default, which safely ignores common nouns like "my sister".
+    pattern = r'\b(?:' + '|'.join(map(re.escape, en_aliases_sorted)) + r')\b'
+    alias_regex = re.compile(pattern)
+
+    for i in range(len(text_jp)):
+        line_jp = text_jp[i]
+
+        # Figure out the true intended name from the Japanese text
+        target_en = None
+        for jp_term, expected_en in jp_target_mapping:
+            if jp_term in line_jp:
+                target_en = expected_en
+                break
+
+        if target_en:
+            # Find any of the recognized English aliases in the line and swap them for the correct target
+            text_en[i] = alias_regex.sub(target_en, text_en[i])
+
+    return text_en
+
+def honorifics_yamashiro(text_en, text_jp):
+    # 1. Map JP text directly to the exact desired EN output.
+    # Order matters: we put the longest/most specific names first
+    # so "シスター唯架" is caught before just "シスター" or "唯架".
+    jp_target_mapping = [
+        ("山城教諭", "Mr. Yamashiro"),
+        ("山城先生", "Yamashiro-sensei"),
+        ("山城", "Yamashiro")
+    ]
+
+    # 2. List all the inconsistent ways the English text refers to her.
+    # We include your bugged outputs too, so this script cleans them up if they exist!
+    en_aliases = [
+        "Mr. Yamashiro"
+    ]
+
+    # Sort the English aliases by length (longest first) so regex checks "Sister Yuika" before "Sister"
+    en_aliases_sorted = sorted(en_aliases, key=len, reverse=True)
+
+    # Build a regex pattern to match these exactly as whole words.
+    # This is case-sensitive by default, which safely ignores common nouns like "my sister".
+    pattern = r'\b(?:' + '|'.join(map(re.escape, en_aliases_sorted)) + r')\b'
+    alias_regex = re.compile(pattern)
+
+    for i in range(len(text_jp)):
+        line_jp = text_jp[i]
+
+        # Figure out the true intended name from the Japanese text
+        target_en = None
+        for jp_term, expected_en in jp_target_mapping:
+            if jp_term in line_jp:
+                target_en = expected_en
+                break
+
+        if target_en:
+            # Find any of the recognized English aliases in the line and swap them for the correct target
+            text_en[i] = alias_regex.sub(target_en, text_en[i])
 
     return text_en
 
@@ -282,6 +420,7 @@ def americanisms(text):
 
     # It's weird, in these two instances they use an americanised school grade system, but in all other instances so
     # far they stick to the Japanese one
+    # There is one more instance, but I don't think I'll really add this to the patch. This function is never called, btw
 
     # 11th Grade => 2nd Year
     text[559] = text[559].replace("11th grade", "2nd year")
