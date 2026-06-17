@@ -1,83 +1,18 @@
 import os
 
-from utils.replacement_helper import normalize_honorifics
+from utils.replacement_helper import normalize_honorifics, load_replacements
 
 def honorifics(text_en, text_jp):
     text_en = honorifics_yuika(text_en, text_jp)
     text_en = honorifics_yamashiro(text_en, text_jp)
-    jp_to_en_name_mapping = [
-        ('蒼崎', 'Aozaki'),
-        ('青子', 'Aoko'),
-        ('久遠寺', 'Kuonji'),
-        ('有珠', 'Alice'),
-        ('静希', 'Shizuki'),
-        ('草十郎', 'Soujuurou'),
-        ('橙子', 'Touko'),
-        ('トーコ', 'Touko'),
-        ('槻司', 'Tsukiji'),
-        ('鳶丸', 'Tobimaru'),
-        ('木乃美', 'Kinomi'),
-        ('芳助', 'Housuke'),
-        ('久万梨', 'Kumari'),
-        ('金鹿', 'Kojika'),
-        ('ルゥ', 'Lugh'),
-        ('ベオウルフ', 'Beowulf'),
-        ('ベオ', 'Beo'),
-        ('文柄', 'Fumizuka'),
-        ('詠梨', 'Eiri'),
-        ('周瀬', 'Suse'),
-        ('律架', 'Ritsuka'),
-        ('唯架', 'Yuika'),
-        ('シスター', 'Sister'),
-        ('和樹', 'Kazuki'),
-        ('土桔', 'Tokitsu'),
-        ('由里彦', 'Yurihiko'),
-        ('メイ', 'May'),
-        ('リデル', 'Riddell'),
-        ('アーシェロット', 'Archelot'),
-        ('吉田', 'Yoshida'),
-        ('<吉田|よしだ>', 'Yoshida'),
-        ('恒河', 'Kouga'),
-        ('<恒河|こうが>', 'Kouga'),
-        ('<魚達|うおたつ>', 'Uotatsu'),
-        ('魚達', 'Uotatsu'),
-        ('花澤', 'Hanazawa'),
-        ('エイリ', 'Eiri'),
-        ('ザキ', 'Zaki'),
-        ('アリス', 'Alice'),
-        ('ユイ', 'Yui'),
-        ('トコ', 'Toko'),
-        ('アコ', 'Ako'),
-        ('<蒼崎|あおざき>', 'Aozaki'),
-        ('うじゅうろう>', 'Soujuurou'),
-        ('有里', 'Arisato'),
-        ('城|やましろ>', 'Yamashiro'),
-        ('中|さとなか>', 'Satonaka'),
-        ('里中', 'Satonaka'),
-        ('美濃', 'Mino'),
-        ('<美|み><濃|の>', 'Mino'),
-        ('キッツィー', 'Kitsy'),
-        ('青山', 'Aoyama'),
-    ]
-    jp_to_en_honorific_mapping = [
-        ('さん', '-san'),
-        ('サン', '-san'),
-        ('様', '-sama'),
-        ('さま', '-sama'),
-        ('ちゃん', '-chan'),
-        ('くん', '-kun'),
-        ('君', '-kun'),
-        ('先生', '-sensei'),
-        ('先輩', '-senpai'),
-        ('氏', '-shi'),
-        ('クン', '-kun'),
-        ('センセ', '-sensei'),
-        ('せんせい', '-sensei'),
-    ]
+    jp_to_en_name_replacements = load_replacements("json/jp_to_en_names.json")
+    jp_to_en_honorific_replacements = load_replacements("json/jp_to_en_honorifics.json")
+    jp_to_en_names = [(item.original, item.replacement) for item in jp_to_en_name_replacements]
+    jp_to_en_honorifics = [(item.original, item.replacement) for item in jp_to_en_honorific_replacements]
     en_prefixes = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
     replacements = []
-    for jp_name, en_name in jp_to_en_name_mapping:
-        for jp_honorific, en_honorific in jp_to_en_honorific_mapping:
+    for jp_name, en_name in jp_to_en_names:
+        for jp_honorific, en_honorific in jp_to_en_honorifics:
             replacements.append(
                 (
                     jp_name + jp_honorific,
@@ -85,7 +20,6 @@ def honorifics(text_en, text_jp):
                     [prefix + en_name for prefix in en_prefixes],
                 )
             )
-
     for index, (line_en, line_jp) in enumerate(zip(text_en, text_jp)):
         for jp_honorific, en_honorific, en_prefix_variants in replacements:
             if jp_honorific not in line_jp:

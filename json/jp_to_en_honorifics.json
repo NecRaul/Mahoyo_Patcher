@@ -1,0 +1,67 @@
+[
+  {
+    "line": "all",
+    "original": "さん",
+    "replacement": "-san"
+  },
+  {
+    "line": "all",
+    "original": "サン",
+    "replacement": "-san"
+  },
+  {
+    "line": "all",
+    "original": "様",
+    "replacement": "-sama"
+  },
+  {
+    "line": "all",
+    "original": "さま",
+    "replacement": "-sama"
+  },
+  {
+    "line": "all",
+    "original": "ちゃん",
+    "replacement": "-chan"
+  },
+  {
+    "line": "all",
+    "original": "くん",
+    "replacement": "-kun"
+  },
+  {
+    "line": "all",
+    "original": "君",
+    "replacement": "-kun"
+  },
+  {
+    "line": "all",
+    "original": "先生",
+    "replacement": "-sensei"
+  },
+  {
+    "line": "all",
+    "original": "先輩",
+    "replacement": "-senpai"
+  },
+  {
+    "line": "all",
+    "original": "氏",
+    "replacement": "-shi"
+  },
+  {
+    "line": "all",
+    "original": "クン",
+    "replacement": "-kun"
+  },
+  {
+    "line": "all",
+    "original": "センセ",
+    "replacement": "-sensei"
+  },
+  {
+    "line": "all",
+    "original": "せんせい",
+    "replacement": "-sensei"
+  }
+]

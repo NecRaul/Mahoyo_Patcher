@@ -1,0 +1,262 @@
+[
+  {
+    "line": "all",
+    "original": "蒼崎",
+    "replacement": "Aozaki"
+  },
+  {
+    "line": "all",
+    "original": "青子",
+    "replacement": "Aoko"
+  },
+  {
+    "line": "all",
+    "original": "久遠寺",
+    "replacement": "Kuonji"
+  },
+  {
+    "line": "all",
+    "original": "有珠",
+    "replacement": "Alice"
+  },
+  {
+    "line": "all",
+    "original": "静希",
+    "replacement": "Shizuki"
+  },
+  {
+    "line": "all",
+    "original": "草十郎",
+    "replacement": "Soujuurou"
+  },
+  {
+    "line": "all",
+    "original": "橙子",
+    "replacement": "Touko"
+  },
+  {
+    "line": "all",
+    "original": "トーコ",
+    "replacement": "Touko"
+  },
+  {
+    "line": "all",
+    "original": "槻司",
+    "replacement": "Tsukiji"
+  },
+  {
+    "line": "all",
+    "original": "鳶丸",
+    "replacement": "Tobimaru"
+  },
+  {
+    "line": "all",
+    "original": "木乃美",
+    "replacement": "Kinomi"
+  },
+  {
+    "line": "all",
+    "original": "芳助",
+    "replacement": "Housuke"
+  },
+  {
+    "line": "all",
+    "original": "久万梨",
+    "replacement": "Kumari"
+  },
+  {
+    "line": "all",
+    "original": "金鹿",
+    "replacement": "Kojika"
+  },
+  {
+    "line": "all",
+    "original": "ルゥ",
+    "replacement": "Lugh"
+  },
+  {
+    "line": "all",
+    "original": "ベオウルフ",
+    "replacement": "Beowulf"
+  },
+  {
+    "line": "all",
+    "original": "ベオ",
+    "replacement": "Beo"
+  },
+  {
+    "line": "all",
+    "original": "文柄",
+    "replacement": "Fumizuka"
+  },
+  {
+    "line": "all",
+    "original": "詠梨",
+    "replacement": "Eiri"
+  },
+  {
+    "line": "all",
+    "original": "周瀬",
+    "replacement": "Suse"
+  },
+  {
+    "line": "all",
+    "original": "律架",
+    "replacement": "Ritsuka"
+  },
+  {
+    "line": "all",
+    "original": "唯架",
+    "replacement": "Yuika"
+  },
+  {
+    "line": "all",
+    "original": "シスター",
+    "replacement": "Sister"
+  },
+  {
+    "line": "all",
+    "original": "和樹",
+    "replacement": "Kazuki"
+  },
+  {
+    "line": "all",
+    "original": "土桔",
+    "replacement": "Tokitsu"
+  },
+  {
+    "line": "all",
+    "original": "由里彦",
+    "replacement": "Yurihiko"
+  },
+  {
+    "line": "all",
+    "original": "メイ",
+    "replacement": "May"
+  },
+  {
+    "line": "all",
+    "original": "リデル",
+    "replacement": "Riddell"
+  },
+  {
+    "line": "all",
+    "original": "アーシェロット",
+    "replacement": "Archelot"
+  },
+  {
+    "line": "all",
+    "original": "吉田",
+    "replacement": "Yoshida"
+  },
+  {
+    "line": "all",
+    "original": "<吉田|よしだ>",
+    "replacement": "Yoshida"
+  },
+  {
+    "line": "all",
+    "original": "恒河",
+    "replacement": "Kouga"
+  },
+  {
+    "line": "all",
+    "original": "<恒河|こうが>",
+    "replacement": "Kouga"
+  },
+  {
+    "line": "all",
+    "original": "<魚達|うおたつ>",
+    "replacement": "Uotatsu"
+  },
+  {
+    "line": "all",
+    "original": "魚達",
+    "replacement": "Uotatsu"
+  },
+  {
+    "line": "all",
+    "original": "花澤",
+    "replacement": "Hanazawa"
+  },
+  {
+    "line": "all",
+    "original": "エイリ",
+    "replacement": "Eiri"
+  },
+  {
+    "line": "all",
+    "original": "ザキ",
+    "replacement": "Zaki"
+  },
+  {
+    "line": "all",
+    "original": "アリス",
+    "replacement": "Alice"
+  },
+  {
+    "line": "all",
+    "original": "ユイ",
+    "replacement": "Yui"
+  },
+  {
+    "line": "all",
+    "original": "トコ",
+    "replacement": "Toko"
+  },
+  {
+    "line": "all",
+    "original": "アコ",
+    "replacement": "Ako"
+  },
+  {
+    "line": "all",
+    "original": "<蒼崎|あおざき>",
+    "replacement": "Aozaki"
+  },
+  {
+    "line": "all",
+    "original": "うじゅうろう>",
+    "replacement": "Soujuurou"
+  },
+  {
+    "line": "all",
+    "original": "有里",
+    "replacement": "Arisato"
+  },
+  {
+    "line": "all",
+    "original": "城|やましろ>",
+    "replacement": "Yamashiro"
+  },
+  {
+    "line": "all",
+    "original": "中|さとなか>",
+    "replacement": "Satonaka"
+  },
+  {
+    "line": "all",
+    "original": "里中",
+    "replacement": "Satonaka"
+  },
+  {
+    "line": "all",
+    "original": "美濃",
+    "replacement": "Mino"
+  },
+  {
+    "line": "all",
+    "original": "<美|み><濃|の>",
+    "replacement": "Mino"
+  },
+  {
+    "line": "all",
+    "original": "キッツィー",
+    "replacement": "Kitsy"
+  },
+  {
+    "line": "all",
+    "original": "青山",
+    "replacement": "Aoyama"
+  }
+]
