@@ -5,8 +5,7 @@ import platform
 
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QFileDialog,
-    QVBoxLayout,
+    QApplication, QWidget, QFileDialog, QVBoxLayout,
     QPushButton, QLabel, QCheckBox, QMessageBox, QProgressBar
 )
 from PySide6.QtCore import Qt, QThread, Signal
@@ -37,7 +36,7 @@ def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
+        base_path = sys._MEIPASS  # ty:ignore[unresolved-attribute]
     except Exception:
         base_path = os.path.abspath(".")
 
@@ -60,8 +59,8 @@ def autodetect_game_path():
 
     for reg_path in reg_paths:
         try:
-            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path) as key:
-                install_loc, _ = winreg.QueryValueEx(key, "InstallLocation")
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path) as key:  # ty:ignore[unresolved-attribute]
+                install_loc, _ = winreg.QueryValueEx(key, "InstallLocation")  # ty:ignore[unresolved-attribute]
                 if os.path.isdir(install_loc):
                     return install_loc
         except Exception:
@@ -192,7 +191,7 @@ class PatchWindow(QWidget):
         # Added border and padding to make it look like a text box
         self.folder_label = QLabel("No game folder selected")
         self.folder_label.setWordWrap(True)
-        self.folder_label.setAlignment(Qt.AlignCenter)
+        self.folder_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.folder_label.setStyleSheet(
             "border: 1px solid #aaa; padding: 5px; background: #f0f0f0; border-radius: 4px;")
         layout.addWidget(self.folder_label)
@@ -222,7 +221,7 @@ class PatchWindow(QWidget):
 
         # Progress Bar
         self.progress_label = QLabel("")
-        self.progress_label.setAlignment(Qt.AlignCenter)
+        self.progress_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.progress_label.setStyleSheet("margin-top: 10px;")
         layout.addWidget(self.progress_label)
 
