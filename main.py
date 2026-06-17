@@ -11,7 +11,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QThread, Signal
 
 from extractor import Extractor
-from replacer import Replacer, metric, romanization, name_order, honorifics, translation_mistakes
+from replacer import Replacer, honorifics
+from utils.replacement_helper import load_replacements, apply_replacements
 
 # -----------------------
 # Constants
@@ -112,22 +113,29 @@ class PatchWorker(QThread):
             # --- Step 4: Applying Patches ---
             self.status_signal.emit("Processing text...")
 
-            text_en = translation_mistakes(text_en)
+            translation_mistakes= load_replacements("json/translation_mistakes.json")
+            text_en = apply_replacements(text_en, translation_mistakes)
+            self.progress_signal.emit(45)
+            americanism = load_replacements("json/americanisms.json")
+            text_en = apply_replacements(text_en, americanism)
+            self.progress_signal.emit(50)
 
             if self.options['metric']:
-                text_en = metric(text_en)
-                self.progress_signal.emit(45)
-
-            if self.options['romanization']:
-                text_en = romanization(text_en)
+                unit_conversions = load_replacements("json/unit_conversions.json")
+                text_en = apply_replacements(text_en, unit_conversions)
                 self.progress_signal.emit(55)
 
-            if self.options['name_order']:
-                text_en = name_order(text_en)
+            if self.options['romanization']:
+                romanizations = load_replacements("json/romanizations.json")
+                text_en = apply_replacements(text_en, romanizations)
                 self.progress_signal.emit(65)
 
+            if self.options['name_order']:
+                name_order = load_replacements("json/name_order.json")
+                text_en = apply_replacements(text_en, name_order)
+                self.progress_signal.emit(75)
+
             if self.options['honorifics']:
-                self.status_signal.emit("Applying honorifics (this may take a moment)...")
                 text_en = honorifics(text_en, text_jp)
                 self.progress_signal.emit(85)
 
