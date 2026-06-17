@@ -5,53 +5,100 @@ from utils.replacement_helper import normalize_honorifics
 def honorifics(text_en, text_jp):
     text_en = honorifics_yuika(text_en, text_jp)
     text_en = honorifics_yamashiro(text_en, text_jp)
-    text_en = honorifics_special(text_en, text_jp)
-    en_names = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
-                      "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf", "Beo", "Fumizuka", "Eiri",
-                      "Suse", "Ritsuka", "Yuika", "Sister", "Kazuki", "Tokitsu", "Yurihiko",
-                      "May", "Riddell", "Archelot", "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu",
-                      "Hanazawa", "Eiri", "Zaki", "Alice", "Yui", "Toko", "Ako", "Aozaki", "Soujuurou",
-                      "Arisato", "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
+    jp_to_en_name_mapping = [
+        ('蒼崎', 'Aozaki'),
+        ('青子', 'Aoko'),
+        ('久遠寺', 'Kuonji'),
+        ('有珠', 'Alice'),
+        ('静希', 'Shizuki'),
+        ('草十郎', 'Soujuurou'),
+        ('橙子', 'Touko'),
+        ('トーコ', 'Touko'),
+        ('槻司', 'Tsukiji'),
+        ('鳶丸', 'Tobimaru'),
+        ('木乃美', 'Kinomi'),
+        ('芳助', 'Housuke'),
+        ('久万梨', 'Kumari'),
+        ('金鹿', 'Kojika'),
+        ('ルゥ', 'Lugh'),
+        ('ベオウルフ', 'Beowulf'),
+        ('ベオ', 'Beo'),
+        ('文柄', 'Fumizuka'),
+        ('詠梨', 'Eiri'),
+        ('周瀬', 'Suse'),
+        ('律架', 'Ritsuka'),
+        ('唯架', 'Yuika'),
+        ('シスター', 'Sister'),
+        ('和樹', 'Kazuki'),
+        ('土桔', 'Tokitsu'),
+        ('由里彦', 'Yurihiko'),
+        ('メイ', 'May'),
+        ('リデル', 'Riddell'),
+        ('アーシェロット', 'Archelot'),
+        ('吉田', 'Yoshida'),
+        ('<吉田|よしだ>', 'Yoshida'),
+        ('恒河', 'Kouga'),
+        ('<恒河|こうが>', 'Kouga'),
+        ('<魚達|うおたつ>', 'Uotatsu'),
+        ('魚達', 'Uotatsu'),
+        ('花澤', 'Hanazawa'),
+        ('エイリ', 'Eiri'),
+        ('ザキ', 'Zaki'),
+        ('アリス', 'Alice'),
+        ('ユイ', 'Yui'),
+        ('トコ', 'Toko'),
+        ('アコ', 'Ako'),
+        ('<蒼崎|あおざき>', 'Aozaki'),
+        ('うじゅうろう>', 'Soujuurou'),
+        ('有里', 'Arisato'),
+        ('城|やましろ>', 'Yamashiro'),
+        ('中|さとなか>', 'Satonaka'),
+        ('里中', 'Satonaka'),
+        ('美濃', 'Mino'),
+        ('<美|み><濃|の>', 'Mino'),
+        ('キッツィー', 'Kitsy'),
+        ('青山', 'Aoyama'),
+    ]
+    jp_to_en_honorific_mapping = [
+        ('さん', '-san'),
+        ('サン', '-san'),
+        ('様', '-sama'),
+        ('さま', '-sama'),
+        ('ちゃん', '-chan'),
+        ('くん', '-kun'),
+        ('君', '-kun'),
+        ('先生', '-sensei'),
+        ('先輩', '-senpai'),
+        ('氏', '-shi'),
+        ('クン', '-kun'),
+        ('センセ', '-sensei'),
+        ('せんせい', '-sensei'),
+    ]
     en_prefixes = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
-    en_honorifics = ["-san", "-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun", "-sensei", "-sensei"]
-    jp_names = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
-                      "鳶丸", "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨",
-                      "周瀬", "律架", "唯架", "シスター", "和樹", "土桔", "由里彦",
-                      "メイ", "リデル", "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>", "魚達",
-                      "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "<蒼崎|あおざき>", "うじゅうろう>",
-                      "有里", "城|やましろ>", "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
-    jp_honorifics = ["さん", "サン", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン", "センセ", "せんせい"]
     replacements = []
-    for en_name, jp_name in zip(en_names, jp_names):
-        en_prefix_variants = [
-            prefix + en_name for prefix in en_prefixes
-        ]
-        en_honorific_variants = [
-            en_name + honorific for honorific in en_honorifics
-        ]
-        jp_honorific_variants = [
-            jp_name + honorific for honorific in jp_honorifics
-        ]
-
-        replacements.append((
-            en_prefix_variants,
-            en_honorific_variants,
-            jp_honorific_variants
-        ))
+    for jp_name, en_name in jp_to_en_name_mapping:
+        for jp_honorific, en_honorific in jp_to_en_honorific_mapping:
+            replacements.append(
+                (
+                    jp_name + jp_honorific,
+                    en_name + en_honorific,
+                    [prefix + en_name for prefix in en_prefixes],
+                )
+            )
 
     for index, (line_en, line_jp) in enumerate(zip(text_en, text_jp)):
-        for en_prefix_variants, en_honorific_variants, jp_honorific_variants in replacements:
-            for jp_honorific, en_honorific in zip(jp_honorific_variants, en_honorific_variants):
-                if jp_honorific not in line_jp:
-                    continue
-                for en_prefix in en_prefix_variants:
-                    if en_prefix in line_en and en_honorific not in line_en:
-                        line_en = line_en.replace(
-                            en_prefix,
-                            en_honorific
-                        )
-                        break
-            text_en[index] = line_en
+        for jp_honorific, en_honorific, en_prefix_variants in replacements:
+            if jp_honorific not in line_jp:
+                continue
+            for en_prefix in en_prefix_variants:
+                if en_prefix in line_en and en_honorific not in line_en:
+                    line_en = line_en.replace(
+                        en_prefix,
+                        en_honorific
+                    )
+                    break
+        text_en[index] = line_en
+    text_en = honorifics_special(text_en, text_jp)
     return text_en
 
 def honorifics_yuika(text_en, text_jp):
