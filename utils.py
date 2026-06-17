@@ -1,7 +1,10 @@
 import json
+import os
+import platform
 import re
+import sys
 
-from replacement import Replacement
+from classes import Replacement
 
 
 def load_replacements(json_file):
@@ -44,3 +47,42 @@ def normalize_honorifics(text_en, text_jp, jp_to_en, en_aliases):
         if target_en:
             text_en[index] = alias_regex.sub(target_en, text_en[index])
     return text_en
+
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS  # ty:ignore[unresolved-attribute]
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+def autodetect_game_path():
+    """Attempts to find the game installation path via Windows Registry."""
+    if platform.system() != "Windows":
+        return None
+
+    import winreg
+
+    STEAM_APP_ID = "2052410"
+
+    reg_paths = [
+        r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App "
+        + STEAM_APP_ID,
+        r"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App "
+        + STEAM_APP_ID,
+    ]
+
+    for reg_path in reg_paths:
+        try:
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path) as key:  # ty:ignore[unresolved-attribute]
+                install_loc, _ = winreg.QueryValueEx(key, "InstallLocation")  # ty:ignore[unresolved-attribute]
+                if os.path.isdir(install_loc):
+                    return install_loc
+        except Exception:
+            continue
+
+    return None

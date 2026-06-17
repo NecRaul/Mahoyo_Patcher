@@ -1,73 +1,37 @@
-import sys
 import os
 import shutil
-import platform
+import sys
 
+from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QFileDialog, QVBoxLayout,
-    QPushButton, QLabel, QCheckBox, QMessageBox, QProgressBar
+    QApplication,
+    QCheckBox,
+    QFileDialog,
+    QLabel,
+    QMessageBox,
+    QProgressBar,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
 )
-from PySide6.QtCore import Qt, QThread, Signal
 
-from extractor import Extractor
-from replacer import Replacer, honorifics
-from utils.replacement_helper import load_replacements, apply_replacements
+from classes import Extractor, Replacer
+from honorifics import replace_honorifics
+from utils import (
+    apply_replacements,
+    autodetect_game_path,
+    load_replacements,
+    resource_path,
+)
 
-# -----------------------
-# Constants
-# -----------------------
-HFA_NAME = "data00200"
-HFA_REL_PATH = f"{HFA_NAME}.hfa"
-STEAM_APP_ID = "2052410"
-
+HFA_PATH = "data00200.hfa"
 EN_SCRIPT = 0
 JP_SCRIPT = 1
-
 EN_TXT = "extracted/script_en.txt"
 JP_TXT = "extracted/script_jp.txt"
 OUT_TXT = "extracted/script_en_patched.txt"
-
 APP_ICON = "icon.ico"
-
-# -----------------------
-# Helper: Resource Path
-# -----------------------
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS  # ty:ignore[unresolved-attribute]
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
-# -----------------------
-# Helper: Auto-detect
-# -----------------------
-def autodetect_game_path():
-    """Attempts to find the game installation path via Windows Registry."""
-    if platform.system() != "Windows":
-        return None
-
-    import winreg
-
-    reg_paths = [
-        r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App " + STEAM_APP_ID,
-        r"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App " + STEAM_APP_ID
-    ]
-
-    for reg_path in reg_paths:
-        try:
-            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path) as key:  # ty:ignore[unresolved-attribute]
-                install_loc, _ = winreg.QueryValueEx(key, "InstallLocation")  # ty:ignore[unresolved-attribute]
-                if os.path.isdir(install_loc):
-                    return install_loc
-        except Exception:
-            continue
-
-    return None
 
 
 # -----------------------
@@ -93,7 +57,7 @@ class PatchWorker(QThread):
 
             # --- Step 2: Extraction ---
             self.status_signal.emit("Extracting scripts...")
-            extractor = Extractor(self.game_dir, HFA_NAME)
+            extractor = Extractor(self.game_dir, HFA_PATH)
 
             extractor.extract(EN_SCRIPT, EN_TXT)
             self.progress_signal.emit(15)
@@ -113,31 +77,33 @@ class PatchWorker(QThread):
             # --- Step 4: Applying Patches ---
             self.status_signal.emit("Processing text...")
 
-            translation_mistakes= load_replacements("json/translation_mistakes.json")
+            translation_mistakes = load_replacements("json/translation_mistakes.json")
             text_en = apply_replacements(text_en, translation_mistakes)
             self.progress_signal.emit(45)
             americanism = load_replacements("json/americanisms.json")
             text_en = apply_replacements(text_en, americanism)
             self.progress_signal.emit(50)
 
-            if self.options['metric']:
+            if self.options["metric"]:
                 unit_conversions = load_replacements("json/unit_conversions.json")
                 text_en = apply_replacements(text_en, unit_conversions)
                 self.progress_signal.emit(55)
 
-            if self.options['romanization']:
+            if self.options["romanization"]:
                 romanizations = load_replacements("json/romanizations.json")
                 text_en = apply_replacements(text_en, romanizations)
                 self.progress_signal.emit(65)
 
-            if self.options['name_order']:
+            if self.options["name_order"]:
                 name_order = load_replacements("json/name_order.json")
                 text_en = apply_replacements(text_en, name_order)
                 self.progress_signal.emit(75)
 
-            if self.options['honorifics']:
-                text_en = honorifics(text_en, text_jp)
-                honorific_edge_cases = load_replacements("json/honorific_edge_cases.json")
+            if self.options["honorifics"]:
+                text_en = replace_honorifics(text_en, text_jp)
+                honorific_edge_cases = load_replacements(
+                    "json/honorific_edge_cases.json"
+                )
                 text_en = apply_replacements(text_en, honorific_edge_cases)
                 self.progress_signal.emit(85)
 
@@ -203,7 +169,11 @@ class PatchWindow(QWidget):
         self.folder_label.setWordWrap(True)
         self.folder_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.folder_label.setStyleSheet(
-            "border: 1px solid #aaa; padding: 5px; background: #f0f0f0; border-radius: 4px;")
+            "border: 1px solid #aaa; "
+            "padding: 5px; "
+            "background: #f0f0f0; "
+            "border-radius: 4px;"
+        )
         layout.addWidget(self.folder_label)
 
         # 2. Select Button (Underneath)
@@ -267,12 +237,14 @@ class PatchWindow(QWidget):
         self.game_dir = folder
         self.folder_label.setText(folder)
 
-        candidate = os.path.join(folder, HFA_REL_PATH)
+        candidate = os.path.join(folder, HFA_PATH)
 
         if not os.path.isfile(candidate):
             self.patch_btn.setEnabled(False)
             if self.sender() == self.select_folder_btn:
-                QMessageBox.critical(self, "File not found", f"Could not find:\n\n{HFA_REL_PATH}")
+                QMessageBox.critical(
+                    self, "File not found", f"Could not find:\n\n{HFA_PATH}"
+                )
             return
 
         self.hfa_path = candidate
@@ -290,10 +262,10 @@ class PatchWindow(QWidget):
 
     def run_patch(self):
         options = {
-            'metric': self.metric_cb.isChecked(),
-            'romanization': self.romanization_cb.isChecked(),
-            'name_order': self.name_order_cb.isChecked(),
-            'honorifics': self.honorifics_cb.isChecked(),
+            "metric": self.metric_cb.isChecked(),
+            "romanization": self.romanization_cb.isChecked(),
+            "name_order": self.name_order_cb.isChecked(),
+            "honorifics": self.honorifics_cb.isChecked(),
         }
 
         self.patch_btn.setEnabled(False)
