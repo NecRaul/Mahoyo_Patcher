@@ -1,4 +1,5 @@
 import json
+import re
 
 from replacement import Replacement
 
@@ -29,3 +30,17 @@ def apply_replacements(text, replacements):
         else:
             text[line - 1] = text[line - 1].replace(original_txt, replacement_txt)
     return text
+
+
+def normalize_honorifics(text_en, text_jp, jp_to_en, en_aliases):
+    en_aliases_sorted = sorted(en_aliases, key=len, reverse=True)
+    pattern = r"\b(?:" + "|".join(map(re.escape, en_aliases_sorted)) + r")\b"  # ty:ignore[no-matching-overload]
+    alias_regex = re.compile(pattern)
+    for index, line_jp in enumerate(text_jp):
+        target_en = next(
+            (en for jp, en in jp_to_en if jp in line_jp),
+            None,
+        )
+        if target_en:
+            text_en[index] = alias_regex.sub(target_en, text_en[index])
+    return text_en

@@ -1,5 +1,6 @@
 import os
-import re
+
+from utils.replacement_helper import normalize_honorifics
 
 def honorifics(text_en, text_jp):
     text_en = honorifics_yuika(text_en, text_jp)
@@ -51,6 +52,52 @@ def honorifics(text_en, text_jp):
                         )
                         break
             text_en[index] = line_en
+    return text_en
+
+def honorifics_yuika(text_en, text_jp):
+    jp_to_en= [
+        ("シスター唯架", "Sister Yuika"),
+        ("周瀬唯架", "Suse Yuika"),
+        ("<周|す><瀬|せ><唯架|ゆいか>", "Suse Yuika"),
+        ("<唯架|ゆいか>", "Yuika"),
+        ("唯架さん", "Yuika-san"),
+        ("周瀬さん", "Suse-san"),
+        ("唯ちゃん", "Yui-chan"),
+        ("唯架", "Yuika"),
+        ("周瀬", "Suse"),
+        ("ユイカ", "Yuika"),
+        ("シスター", "Sister")
+    ]
+    en_aliases = [
+        "Sister-san Yuika-san",
+        "Yuika Yuika",
+        "Suse Yuika",
+        "Sister Yuika-san",
+        "Sister-san Yuika",
+        "Sister Yuika",
+        "Sister-san",
+        "Miss Yuika",
+        "Ms. Yuika",
+        "Ms. Suse",
+        "Yuika-san",
+        "Suse-san",
+        "Yui-chan",
+        "Sister",
+        "Yuika",
+        "Suse",
+        "Yui"
+    ]
+    text_en = normalize_honorifics(text_en, text_jp, jp_to_en, en_aliases)
+    return text_en
+
+def honorifics_yamashiro(text_en, text_jp):
+    jp_to_en= [
+        ("山城教諭", "Mr. Yamashiro"),
+        ("山城先生", "Yamashiro-sensei"),
+        ("山城", "Yamashiro")
+    ]
+    en_aliases = ["Mr. Yamashiro"]
+    text_en = normalize_honorifics(text_en, text_jp, jp_to_en, en_aliases)
     return text_en
 
 def honorifics_special(text_en, text_jp):
@@ -202,79 +249,8 @@ def honorifics_special(text_en, text_jp):
     text_en[166] = text_en[166].replace("Yamashiro", "Mr. Yamashiro")
     # Mr. Yamashiro -> Sensei
     text_en[22845] = text_en[22845].replace("Mr. Yamashiro", "Sensei")
-
     return text_en
 
-
-def honorifics_yuika(text_en, text_jp):
-    jp_target_mapping = [
-        ("シスター唯架", "Sister Yuika"),
-        ("周瀬唯架", "Suse Yuika"),
-        ("<周|す><瀬|せ><唯架|ゆいか>", "Suse Yuika"),
-        ("<唯架|ゆいか>", "Yuika"),
-        ("唯架さん", "Yuika-san"),
-        ("周瀬さん", "Suse-san"),
-        ("唯ちゃん", "Yui-chan"),
-        ("唯架", "Yuika"),
-        ("周瀬", "Suse"),
-        ("ユイカ", "Yuika"),
-        ("シスター", "Sister")
-    ]
-    en_aliases = [
-        "Sister-san Yuika-san",
-        "Yuika Yuika",
-        "Suse Yuika",
-        "Sister Yuika-san",
-        "Sister-san Yuika",
-        "Sister Yuika",
-        "Sister-san",
-        "Miss Yuika",
-        "Ms. Yuika",
-        "Ms. Suse",
-        "Yuika-san",
-        "Suse-san",
-        "Yui-chan",
-        "Sister",
-        "Yuika",
-        "Suse",
-        "Yui"
-    ]
-    en_aliases_sorted = sorted(en_aliases, key=len, reverse=True)
-    pattern = r'\b(?:' + '|'.join(map(re.escape, en_aliases_sorted)) + r')\b'
-    alias_regex = re.compile(pattern)
-    for i in range(len(text_jp)):
-        line_jp = text_jp[i]
-        target_en = None
-        for jp_term, expected_en in jp_target_mapping:
-            if jp_term in line_jp:
-                target_en = expected_en
-                break
-        if target_en:
-            text_en[i] = alias_regex.sub(target_en, text_en[i])
-
-    return text_en
-
-def honorifics_yamashiro(text_en, text_jp):
-    jp_target_mapping = [
-        ("山城教諭", "Mr. Yamashiro"),
-        ("山城先生", "Yamashiro-sensei"),
-        ("山城", "Yamashiro")
-    ]
-    en_aliases = ["Mr. Yamashiro" ]
-    en_aliases_sorted = sorted(en_aliases, key=len, reverse=True)
-    pattern = r'\b(?:' + '|'.join(map(re.escape, en_aliases_sorted)) + r')\b'
-    alias_regex = re.compile(pattern)
-    for i in range(len(text_jp)):
-        line_jp = text_jp[i]
-        target_en = None
-        for jp_term, expected_en in jp_target_mapping:
-            if jp_term in line_jp:
-                target_en = expected_en
-                break
-        if target_en:
-            text_en[i] = alias_regex.sub(target_en, text_en[i])
-
-    return text_en
 
 class Replacer:
     def __init__(self, game_dir, input_path, output_path):
