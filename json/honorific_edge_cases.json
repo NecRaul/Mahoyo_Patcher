@@ -1,0 +1,404 @@
+[
+  {
+    "comment": "Aozaki introduction -> <蒼崎|あおざき><青子|あおこ>くん",
+    "line": 381,
+    "original": "Aoko",
+    "replacement": "Aoko-kun"
+  },
+  {
+    "comment": "Drop the honorific, an honorific mentioned without a name...",
+    "line": 464,
+    "original": "Miss",
+    "replacement": "-san"
+  },
+  {
+    "comment": "But should I use an honorific with you?",
+    "line": 467,
+    "original": "What do you mean, what do I mean?",
+    "replacement": "How I'm gonna call you. Is it fine if I use '-kun'?"
+  },
+  {
+    "comment": "Yamashirooo -> Mr. Yamashirooo",
+    "line": 1757,
+    "original": "Mr. Yamashirooo!",
+    "replacement": "Yamashirooo!"
+  },
+  {
+    "comment": "Yuika introduction",
+    "line": 1800,
+    "original": "Yuika",
+    "replacement": "Yuika-san"
+  },
+  {
+    "comment": "Hanazawa-sa-",
+    "line": 1986,
+    "original": "Ms. Hanazawa",
+    "replacement": "Hanazawa-san"
+  },
+  {
+    "comment": "Hanazawa-san takes her leave",
+    "line": 1988,
+    "original": "Catch you later",
+    "replacement": "Hanazawa-san takes her leave"
+  },
+  {
+    "comment": "Tsukiji introduction",
+    "line": 2239,
+    "original": "Tsukiji",
+    "replacement": "Tsukiji-kun"
+  },
+  {
+    "comment": "Caps Lock",
+    "line": 2684,
+    "original": "AOKO AOZAKI",
+    "replacement": "AOZAKI AOKO"
+  },
+  {
+    "comment": "Kitsy-chan and Kitsy Land in the same line. Basing on the mess I create since this will run after",
+    "line": 3974,
+    "original": "mascot Kitsy-chan, retired, and Kitsy-chan Land's",
+    "replacement": "mascot Kitsy-chan, retired, and Kitsy Land's"
+  },
+  {
+    "comment": "Mr. Yamashiro -> sensei",
+    "line": 8591,
+    "original": "Mr. Yamashiro",
+    "replacement": "sensei"
+  },
+  {
+    "comment": "sir -> sensei",
+    "line": 8592,
+    "original": "sir",
+    "replacement": "sensei"
+  },
+  {
+    "comment": "sir -> sensei || restore the missing \"Yamashiro\"",
+    "line": 8621,
+    "original": "sensei",
+    "replacement": "Yamashiro-sensei"
+  },
+  {
+    "comment": "Yamase -> Yamase-san",
+    "line": 11422,
+    "original": "Yamase",
+    "replacement": "Yamase-san"
+  },
+  {
+    "comment": "Fix these two broken lines",
+    "line": 11485,
+    "original": "Kinomi-kun",
+    "replacement": "Kinomi"
+  },
+  {
+    "comment": null,
+    "line": 11486,
+    "original": "Kinomi",
+    "replacement": "Kinomi-kun"
+  },
+  {
+    "comment": "Mino -> Senpai",
+    "line": 11555,
+    "original": "Mino",
+    "replacement": "senpai"
+  },
+  {
+    "comment": "Yuika-san",
+    "line": 12643,
+    "original": "Yuika",
+    "replacement": "Yuika-san"
+  },
+  {
+    "comment": "Sister -> The Sister",
+    "line": 12650,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they rewrote this line in English",
+    "line": 12660,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they rewrote this line in English",
+    "line": 12682,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they rewrote this line in English",
+    "line": 12697,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they rewrote this line in English",
+    "line": 12699,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they rewrote this line in English",
+    "line": 12701,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they wrote this line in English",
+    "line": 16617,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they wrote this line in English",
+    "line": 16651,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "someone like Aoko -> Aoko (helps with the line break while being technically more accurate)",
+    "line": 19768,
+    "original": "someone like Aoko",
+    "replacement": "Aoko"
+  },
+  {
+    "comment": "Miss Alice -> Alice-san - Special case where the name in JP and in EN are in different lines",
+    "line": 19801,
+    "original": "Miss Alice",
+    "replacement": "Alice-san"
+  },
+  {
+    "comment": "Soujuurou -> Soujuurou-kun - Special case where the name in JP and in EN are in different lines",
+    "line": 13658,
+    "original": "Soujuurou",
+    "replacement": "Soujuurou-kun"
+  },
+  {
+    "comment": "Shizuki... -> Shizuki...kun...",
+    "line": 15342,
+    "original": "Shizuki...",
+    "replacement": "Shizuki...kun..."
+  },
+  {
+    "comment": "Ritsuka -> Ritsuka-san",
+    "line": 15622,
+    "original": "Ritsuka",
+    "replacement": "Ritsuka-san"
+  },
+  {
+    "comment": "Shizuki -> Shizuki-kun",
+    "line": 23507,
+    "original": "Shizuki",
+    "replacement": "Shizuki-kun"
+  },
+  {
+    "comment": "Kumari -> Kumari-kun",
+    "line": 23215,
+    "original": "Kumari",
+    "replacement": "Kumari-kun"
+  },
+  {
+    "comment": "Mr. Yamashiro -> Yamashiro",
+    "line": 23242,
+    "original": "Mr. ",
+    "replacement": ""
+  },
+  {
+    "comment": "Kinomi -> Kinomi-kun",
+    "line": 23248,
+    "original": "Kinomi",
+    "replacement": "Kinomi-kun"
+  },
+  {
+    "comment": "Yui -> Yui-chan",
+    "line": 23882,
+    "original": "Yui",
+    "replacement": "Yui-chan"
+  },
+  {
+    "comment": "Ritsuka -> Ritsuka-san",
+    "line": 23890,
+    "original": "Ritsuka",
+    "replacement": "Ritsuka-san"
+  },
+  {
+    "comment": "May -> Riddell-san",
+    "line": 21953,
+    "original": "May",
+    "replacement": "Riddell-san"
+  },
+  {
+    "comment": "Mr. Tokitsu -> Tokitsu-san",
+    "line": 21958,
+    "original": "Mr. Tokitsu",
+    "replacement": "Tokitsu-san"
+  },
+  {
+    "comment": "Mr. Tokitsu -> Tokitsu",
+    "line": 22029,
+    "original": "Mr. Tokitsu",
+    "replacement": "Tokitsu"
+  },
+  {
+    "comment": "Miss Kuonji -> Kuonji-san",
+    "line": 22307,
+    "original": "Kuonji",
+    "replacement": "Kuonji-san"
+  },
+  {
+    "comment": "Mr. Yamashiro -> Yamashiro-sensei",
+    "line": 21568,
+    "original": "Mr. Yamashiro",
+    "replacement": "Yamashiro-sensei"
+  },
+  {
+    "comment": "Sister -> Yuika",
+    "line": 21574,
+    "original": "Sister",
+    "replacement": "Yuika"
+  },
+  {
+    "comment": "Sister-san Yuika-san -> Yuika-san ### Sister wasn't in the original text",
+    "line": 21576,
+    "original": "Sister-san ",
+    "replacement": ""
+  },
+  {
+    "comment": "Mr. Yamashiro -> Yamashiro",
+    "line": 21582,
+    "original": "Mr. ",
+    "replacement": ""
+  },
+  {
+    "comment": "Mr. Yamashiro -> Yamashiro",
+    "line": 21584,
+    "original": "Mr. ",
+    "replacement": ""
+  },
+  {
+    "comment": "Mr. Yamashiro -> Yamashiro",
+    "line": 21659,
+    "original": "Mr. ",
+    "replacement": ""
+  },
+  {
+    "comment": "Mr. Yamashiro -> Sensei",
+    "line": 22845,
+    "original": "Mr. Yamashiro",
+    "replacement": "Sensei"
+  },
+  {
+    "comment": "Miss Kuonji -> Kuonji-san",
+    "line": 23370,
+    "original": "Miss Kuonji",
+    "replacement": "Kuonji-san"
+  },
+  {
+    "comment": "Yuika -> Sister Yuika",
+    "line": 23897,
+    "original": "Yuika",
+    "replacement": "Sister Yuika"
+  },
+  {
+    "comment": "Yuika -> Sister Yuika",
+    "line": 20972,
+    "original": "Yuika",
+    "replacement": "Sister Yuika"
+  },
+  {
+    "comment": "Yuika Yuika -> Suse Yuika",
+    "line": 21084,
+    "original": "Yuika Yuika",
+    "replacement": "Suse Yuika"
+  },
+  {
+    "comment": "Sister -> Sister Yuika ### Because of the way they wrote this line in English",
+    "line": 21091,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21094,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21100,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21102,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21114,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21137,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 21155,
+    "original": "Sister",
+    "replacement": "the Sister"
+  },
+  {
+    "comment": "Miss Kuonji-san -> Miss Kuonji. Basing on the mess I create since this will run after",
+    "line": 22307,
+    "original": "Miss Kuonji-san",
+    "replacement": "Miss Kuonji"
+  },
+  {
+    "comment": "Father Eiri-san -> Father Eiri. Basing on the mess I create since this will run after",
+    "line": 22449,
+    "original": "Father Eiri-san",
+    "replacement": "Father Eiri"
+  },
+  {
+    "comment": "Father Eiri-san -> Father Eiri. Basing on the mess I create since this will run after",
+    "line": 23909,
+    "original": "Father Eiri-san",
+    "replacement": "Father Eiri"
+  },
+  {
+    "comment": "Sister -> The Sister ### Because of the way they wrote this line in English",
+    "line": 24052,
+    "original": "Sister",
+    "replacement": "The Sister"
+  },
+  {
+    "comment": "Yuika -> Suse Yuika",
+    "line": 24089,
+    "original": "Yuika",
+    "replacement": "Suse Yuika"
+  },
+  {
+    "comment": "Yuika -> Suse Yuika",
+    "line": 24114,
+    "original": "Yuika",
+    "replacement": "Suse Yuika"
+  },
+  {
+    "comment": "Yamashiro -> Mr. Yamashiro (thanks to the new Yamashiro function)",
+    "line": 167,
+    "original": "Yamashiro",
+    "replacement": "Mr. Yamashiro"
+  },
+  {
+    "comment": "Mr. Yamashiro -> Sensei",
+    "line": 22846,
+    "original": "Mr. Yamashiro",
+    "replacement": "Sensei"
+  }
+]

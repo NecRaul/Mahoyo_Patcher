@@ -137,6 +137,8 @@ class PatchWorker(QThread):
 
             if self.options['honorifics']:
                 text_en = honorifics(text_en, text_jp)
+                honorific_edge_cases = load_replacements("json/honorific_edge_cases.json")
+                text_en = apply_replacements(text_en, honorific_edge_cases)
                 self.progress_signal.emit(85)
 
             # --- Step 5: Saving & Injecting ---
