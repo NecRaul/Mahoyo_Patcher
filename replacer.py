@@ -127,38 +127,53 @@ def name_order(text):
 def honorifics(text_en, text_jp):
     text_en = honorifics_yuika(text_en, text_jp)
     text_en = honorifics_yamashiro(text_en, text_jp)
-    en_name_prefix = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
-    en_proper_name = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
+    text_en = honorifics_special(text_en, text_jp)
+    en_names = ["Aozaki", "Aoko", "Kuonji", "Alice", "Shizuki", "Soujuurou", "Touko", "Touko", "Tsukiji",
                       "Tobimaru", "Kinomi", "Housuke", "Kumari", "Kojika", "Lugh", "Beowulf", "Beo", "Fumizuka", "Eiri",
                       "Suse", "Ritsuka", "Yuika", "Sister", "Kazuki", "Tokitsu", "Yurihiko",
                       "May", "Riddell", "Archelot", "Yoshida", "Yoshida", "Kouga", "Kouga", "Uotatsu", "Uotatsu",
                       "Hanazawa", "Eiri", "Zaki", "Alice", "Yui", "Toko", "Ako", "Aozaki", "Soujuurou",
                       "Arisato", "Yamashiro", "Satonaka", "Satonaka", "Mino", "Mino", "Kitsy", "Aoyama"]
-    en_honorific = ["-san", "-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun", "-sensei", "-sensei"]
-
-    jp_proper_name = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
+    en_prefixes = ["Mr. ", "Ms. ", "Mister ", "Miss ", "Lady ", ""]
+    en_honorifics = ["-san", "-san", "-sama", "-sama", "-chan", "-kun", "-kun", "-sensei", "-senpai", "-shi", "-kun", "-sensei", "-sensei"]
+    jp_names = ["蒼崎", "青子", "久遠寺", "有珠", "静希", "草十郎", "橙子", "トーコ", "槻司",
                       "鳶丸", "木乃美", "芳助", "久万梨", "金鹿", "ルゥ", "ベオウルフ", "ベオ", "文柄", "詠梨",
                       "周瀬", "律架", "唯架", "シスター", "和樹", "土桔", "由里彦",
                       "メイ", "リデル", "アーシェロット", "吉田", "<吉田|よしだ>", "恒河", "<恒河|こうが>", "<魚達|うおたつ>", "魚達",
                       "花澤", "エイリ", "ザキ", "アリス", "ユイ", "トコ", "アコ", "<蒼崎|あおざき>", "うじゅうろう>",
                       "有里", "城|やましろ>", "中|さとなか>", "里中", "美濃", "<美|み><濃|の>", "キッツィー", "青山"]
-    jp_honorific = ["さん", "サン", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン", "センセ", "せんせい"]
+    jp_honorifics = ["さん", "サン", "様", "さま", "ちゃん", "くん", "君", "先生", "先輩", "氏", "クン", "センセ", "せんせい"]
+    replacements = []
+    for en_name, jp_name in zip(en_names, jp_names):
+        en_prefix_variants = [
+            prefix + en_name for prefix in en_prefixes
+        ]
+        en_honorific_variants = [
+            en_name + honorific for honorific in en_honorifics
+        ]
+        jp_honorific_variants = [
+            jp_name + honorific for honorific in jp_honorifics
+        ]
 
-    line_count = 0
-    for line_jp in text_jp:
-        for index in range(len(en_proper_name)):
-            en_name = [pre + en_proper_name[index] for pre in en_name_prefix]
-            en_name_honorific = [en_proper_name[index] + suf for suf in en_honorific]
-            jp_name = [jp_proper_name[index] + hon for hon in jp_honorific]
-            for index2 in range(len(jp_honorific)):
-                if jp_name[index2] in line_jp:
-                    for name in en_name:
-                        if (name in text_en[line_count]) and (en_name_honorific[index2] not in text_en[line_count]):
-                            text_en[line_count] = text_en[line_count].replace(name, en_name_honorific[index2])
-                            break
+        replacements.append((
+            en_prefix_variants,
+            en_honorific_variants,
+            jp_honorific_variants
+        ))
 
-        line_count = line_count + 1
-    text_en = honorifics_special(text_en, text_jp)
+    for index, (line_en, line_jp) in enumerate(zip(text_en, text_jp)):
+        for en_prefix_variants, en_honorific_variants, jp_honorific_variants in replacements:
+            for jp_honorific, en_honorific in zip(jp_honorific_variants, en_honorific_variants):
+                if jp_honorific not in line_jp:
+                    continue
+                for en_prefix in en_prefix_variants:
+                    if en_prefix in line_en and en_honorific not in line_en:
+                        line_en = line_en.replace(
+                            en_prefix,
+                            en_honorific
+                        )
+                        break
+            text_en[index] = line_en
     return text_en
 
 def honorifics_special(text_en, text_jp):
