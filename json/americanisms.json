@@ -1,0 +1,14 @@
+[
+  {
+    "comment": "11th Grade -> 2nd Year",
+    "line": 560,
+    "original": "11th grade",
+    "replacement": "2nd year"
+  },
+  {
+    "comment": "Freshman -> 1st Year",
+    "line": 2388,
+    "original": "freshman",
+    "replacement": "first-year"
+  }
+]

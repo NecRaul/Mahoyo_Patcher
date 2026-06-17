@@ -1,0 +1,51 @@
+[
+  {
+    "line": "all",
+    "original": "Soujyuro",
+    "replacement": "Soujuurou"
+  },
+  {
+    "line": "all",
+    "original": "Sizuki",
+    "replacement": "Shizuki"
+  },
+  {
+    "line": "all",
+    "original": "Fumidsuka",
+    "replacement": "Fumizuka"
+  },
+  {
+    "line": "all",
+    "original": "Yamasiro",
+    "replacement": "Yamashiro"
+  },
+  {
+    "line": "all",
+    "original": "Koga",
+    "replacement": "Kouga"
+  },
+  {
+    "comment": "The 'jyu' in your name",
+    "line": 1918,
+    "original": "jyu",
+    "replacement": "juu"
+  },
+  {
+    "comment": "Si -> Shi",
+    "line": 15549,
+    "original": "Si",
+    "replacement": "Shi"
+  },
+  {
+    "comment": "Sou...jyuro... -> Sou...juurou...",
+    "line": 18758,
+    "original": "jyuro",
+    "replacement": "juurou"
+  },
+  {
+    "comment": "Touko -> Toko ### It's how Ritsuka calls Touko",
+    "line": 20889,
+    "original": "Touko",
+    "replacement": "Toko"
+  }
+]

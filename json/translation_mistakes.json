@@ -1,0 +1,86 @@
+[
+  {
+    "comment": "Get him out of his head",
+    "line": 965,
+    "original": "get him out of his head",
+    "replacement": "get him out of her head"
+  },
+  {
+    "comment": "Missing 'to'",
+    "line": 2793,
+    "original": "use them",
+    "replacement": "use them to"
+  },
+  {
+    "comment": "To look of pity -> the look of pity",
+    "line": 3396,
+    "original": "to look",
+    "replacement": "the look"
+  },
+  {
+    "comment": "missing 'the'",
+    "line": 3438,
+    "original": "unassuming",
+    "replacement": "the unassuming"
+  },
+  {
+    "comment": "missing 'the'",
+    "line": 3472,
+    "original": "keeper",
+    "replacement": "the keeper"
+  },
+  {
+    "comment": "You're weren't",
+    "line": 3748,
+    "original": "You're",
+    "replacement": "You"
+  },
+  {
+    "comment": "missing 'to'",
+    "line": 3899,
+    "original": "seemed",
+    "replacement": "seemed to"
+  },
+  {
+    "comment": "Alice -> Aoko ### How do you make an error like this? Don't they have proofreaders? And they never fixed this?!",
+    "line": 14420,
+    "original": "Alice",
+    "replacement": "Aoko"
+  },
+  {
+    "comment": "missing 'm'",
+    "line": 15171,
+    "original": "with y mouth",
+    "replacement": "with my mouth"
+  },
+  {
+    "comment": "missing 'throw'",
+    "line": 16505,
+    "original": "to those",
+    "replacement": "to throw those"
+  },
+  {
+    "comment": "missing 'what'",
+    "line": 18824,
+    "original": "people",
+    "replacement": "what people"
+  },
+  {
+    "comment": "missing 'Aozaki'. Not really an error but I would consider a mistake since the contrast was intended,",
+    "line": 19516,
+    "original": "so mad",
+    "replacement": "so mad, Aozaki"
+  },
+  {
+    "comment": "he -> she",
+    "line": 21766,
+    "original": "then he'd",
+    "replacement": "then she'd"
+  },
+  {
+    "comment": "missing 'be'",
+    "line": 21769,
+    "original": "had to unlucky",
+    "replacement": "had to be unlucky"
+  }
+]
