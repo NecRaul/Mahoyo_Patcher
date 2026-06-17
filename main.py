@@ -6,12 +6,12 @@ import platform
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QApplication, QWidget, QFileDialog,
-    QVBoxLayout, QHBoxLayout,
+    QVBoxLayout,
     QPushButton, QLabel, QCheckBox, QMessageBox, QProgressBar
 )
 from PySide6.QtCore import Qt, QThread, Signal
 
-from mahoyo_extractor import Extractor
+from extractor import Extractor
 from replacer import Replacer, metric, romanization, name_order, honorifics, translation_mistakes
 
 # -----------------------

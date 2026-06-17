@@ -1,12 +1,14 @@
 import os
+
 from mahoyo_tools import hfa
+
 
 class Extractor:
     def __init__(self, game_dir, hfa_name):
         self.GAME_DIR = game_dir
         self.hfa_name = hfa_name
         self.hfa_path = os.path.join(self.GAME_DIR, f"{hfa_name}.hfa")
-        self.archive = hfa.HfaArchive(self.hfa_path, 'rw')
+        self.archive = hfa.HfaArchive(self.hfa_path, "rw")
 
     def extract(self, script, filepath):
         full_path = os.path.normpath(os.path.join(self.GAME_DIR, filepath))
