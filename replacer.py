@@ -182,7 +182,7 @@ def honorifics_special(text_en, text_jp):
     # Hanazawa-sa-
     text_en[1985] = text_en[1985].replace("Ms. Hanazawa", "Hanazawa-san")
     # Hanazawa-san takes her leave
-    #text_en[1987] = text_en[1987].replace("Catch you later", "Hanazawa-san takes her leave")
+    text_en[1987] = text_en[1987].replace("Catch you later", "Hanazawa-san takes her leave")
     # Tsukiji introduction
     text_en[2238] = text_en[2238].replace("Tsukiji", "Tsukiji-kun")
     # Caps Lock
@@ -194,7 +194,7 @@ def honorifics_special(text_en, text_jp):
     # sir -> sensei
     text_en[8591] = text_en[8591].replace("sir", "sensei")
     # sir -> sensei || restore the missing "Yamashiro"
-    #text_en[8620] = text_en[8620].replace("sensei", "Yamashiro-sensei")
+    text_en[8620] = text_en[8620].replace("sensei", "Yamashiro-sensei")
     # Yamase -> Yamase-san
     text_en[11421] = text_en[11421].replace("Yamase", "Yamase-san")
     # Fix these two broken lines
@@ -286,6 +286,12 @@ def honorifics_special(text_en, text_jp):
     text_en[21136] = text_en[21136].replace("Sister", "the Sister")
     # Sister -> The Sister ### Because of the way they wrote this line in English
     text_en[21154] = text_en[21154].replace("Sister", "the Sister")
+    # Miss Kuonji-san -> Miss Kuonji. Basing on the mess I create since this will run after
+    text_en[22306] = text_en[22306].replace("Miss Kuonji-san", "Miss Kuonji")
+    # Father Eiri-san -> Father Eiri. Basing on the mess I create since this will run after
+    text_en[22448] = text_en[22448].replace("Father Eiri-san", "Father Eiri")
+    # Father Eiri-san -> Father Eiri. Basing on the mess I create since this will run after
+    text_en[23908] = text_en[23908].replace("Father Eiri-san", "Father Eiri")
     # Sister -> The Sister ### Because of the way they wrote this line in English
     text_en[24051] = text_en[24051].replace("Sister", "The Sister")
     # Yuika -> Suse Yuika
