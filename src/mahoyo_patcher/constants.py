@@ -1,0 +1,5 @@
+ICON_FILE: str = "icon.ico"
+HFA_FILE: str = "data00200.hfa"
+SCRIPT_EN: str = "extracted/script_en.txt"
+SCRIPT_JP: str = "extracted/script_jp.txt"
+PATCHED_SCRIPT: str = "extracted/script_en_patched.txt"
