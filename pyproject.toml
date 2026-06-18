@@ -1,0 +1,106 @@
+[build-system]
+requires = ["uv_build>=0.11.21"]
+build-backend = "uv_build"
+
+[project]
+name = "mahoyo-patcher"
+version = "1.6.0"
+"description" = "Patcher for Mahou Tsukai no Yoru"
+readme = "README.md"
+authors = [
+  { name = "agar32", email = "agar32@gmail.com" },
+  { name = "NecRaul", email = "necraul@kuroneko.dev" },
+]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+  "python",
+  "mahoyo",
+  "mahoutsukai-no-yoru",
+  "witch-on-the-holy-night",
+  "a-magicians-night",
+  "visual-novel",
+  "visualnovel",
+  "vn",
+  "nasu",
+  "typemoon",
+  "type-moon",
+]
+requires-python = ">=3.11"
+dependencies = [
+  "PySide6>=6.10.0",
+  "numpy>=2.0.0",
+  "pillow>=12.2.0",
+  "cffi>=2.0.0",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Win32 (MS Windows)",
+  "Environment :: X11 Applications :: Qt",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Topic :: Games/Entertainment",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/agar64/Mahoyo_Patcher"
+Documentation = "https://github.com/agar64/Mahoyo_Patcher#readme"
+Repository = "https://github.com/agar64/Mahoyo_Patcher.git"
+Issues = "https://github.com/agar64/Mahoyo_Patcher/issues"
+
+[project.scripts]
+mahoyo-patcher = "mahoyo_patcher.app:main"
+
+[dependency-groups]
+dev = [
+  "ruff>=0.15.17",
+  "ty>=0.0.50",
+  "pre-commit>=4.6.0",
+  "debugpy>=1.8.20",
+  "pytest>=9.1.0",
+  "pyinstaller>=6.21.0",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+python-preference = "only-managed"
+trusted-publishing = "always"
+
+[tool.uv.build-backend]
+module-name = "mahoyo_patcher"
+module-root = "src"
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py311"
+include = ["pyproject.toml", "src/**/*.py", "tests/*.py"]
+exclude = ["src/mahoyo_tools"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+
+[tool.ty.src]
+include = ["src/mahoyo_patcher", "tests"]
+exclude = ["src/mahoyo_tools"]
+
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.pytest]
+testpaths = ["tests"]
