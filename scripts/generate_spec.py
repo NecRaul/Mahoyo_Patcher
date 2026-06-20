@@ -51,6 +51,10 @@ replacements = [
         "icon=['src/mahoyo_patcher/resources/icon.ico']",
         "icon=[str(project_root / 'src/mahoyo_patcher/resources/icon.ico')]",
     ),
+    (
+        "a.binaries",
+        "[b for b in a.binaries if not b[0].startswith('libfontconfig')]",
+    ),
 ]
 
 for old, new in replacements:

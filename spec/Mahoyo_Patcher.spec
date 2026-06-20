@@ -26,7 +26,7 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
+    [b for b in a.binaries if not b[0].startswith('libfontconfig')],
     a.datas,
     [],
     name='Mahoyo_Patcher',
