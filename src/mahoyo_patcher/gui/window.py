@@ -13,6 +13,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from mahoyo_patcher import __version__
 from mahoyo_patcher.constants import (
     HFA_FILE,
     ICON_FILE,
@@ -27,7 +28,7 @@ from mahoyo_patcher.utils import (
 class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("Mahoyo Patcher v1.6.0")
+        self.setWindowTitle(f"Mahoyo Patcher v{__version__}")
         self.setMinimumWidth(480)
         self.build_ui()
         self.set_icon()

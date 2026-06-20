@@ -1,1 +1,8 @@
-__version__ = "1.6.0"
+from importlib.metadata import PackageNotFoundError, version
+
+__all__ = ["__version__"]
+
+try:
+    __version__ = version("mahoyo-patcher")
+except PackageNotFoundError:
+    __version__ = "dev"
