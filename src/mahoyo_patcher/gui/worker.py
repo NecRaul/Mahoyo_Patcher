@@ -6,9 +6,9 @@ from mahoyo_patcher.core import Patcher
 
 
 class Worker(QThread):
-    progress_signal = Signal(int)
-    status_signal = Signal(str)
-    finished_signal = Signal(bool, str)
+    progress_signal: Signal = Signal(int)
+    status_signal: Signal = Signal(str)
+    finished_signal: Signal = Signal(bool, str)
 
     def __init__(
         self, game_path: Path, hfa_path: Path, options: dict[str, bool]

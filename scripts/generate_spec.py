@@ -3,7 +3,7 @@
 import subprocess
 from pathlib import Path
 
-spec_dir = Path("spec")
+spec_dir: Path = Path("spec")
 spec_dir.mkdir(exist_ok=True)
 
 subprocess.run(
@@ -28,11 +28,11 @@ subprocess.run(
     check=True,
 )
 
-spec = spec_dir / "Mahoyo_Patcher.spec"
+spec: Path = spec_dir / "Mahoyo_Patcher.spec"
 
-text = spec.read_text()
+text: str = spec.read_text()
 
-replacements = [
+replacements: list[tuple[str, str]] = [
     (
         "from PyInstaller.utils.hooks import collect_data_files\n",
         "from PyInstaller.utils.hooks import collect_data_files\n"

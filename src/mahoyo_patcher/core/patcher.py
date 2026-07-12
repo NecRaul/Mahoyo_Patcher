@@ -34,18 +34,18 @@ class Patcher:
         self.progress_callback = progress_callback
         self.report(5, "Initializing patcher...")
 
-        self.hfa_manager = HfaManager(
+        self.hfa_manager: HfaManager = HfaManager(
             self.game_path,
             self.hfa_path,
         )
 
-        self.script_manager_en = ScriptManager(
+        self.script_manager_en: ScriptManager = ScriptManager(
             self.game_path,
             SCRIPT_EN,
             PATCHED_SCRIPT,
         )
 
-        self.script_manager_jp = ScriptManager(
+        self.script_manager_jp: ScriptManager = ScriptManager(
             game_path,
             SCRIPT_JP,
             SCRIPT_JP,

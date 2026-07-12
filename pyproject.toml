@@ -82,11 +82,11 @@ module-root = "src"
 line-length = 88
 indent-width = 4
 target-version = "py311"
-include = ["pyproject.toml", "src/**/*.py", "tests/*.py"]
+include = ["pyproject.toml", "src/**/*.py", "tests/*.py", "scripts/*.py"]
 exclude = ["src/mahoyo_tools"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I"]
+select = ["E", "F", "I", "ANN"]
 fixable = ["ALL"]
 
 [tool.ruff.format]
@@ -96,7 +96,7 @@ line-ending = "auto"
 skip-magic-trailing-comma = false
 
 [tool.ty.src]
-include = ["src/mahoyo_patcher", "tests"]
+include = ["src/mahoyo_patcher", "tests", "scripts"]
 exclude = ["src/mahoyo_tools"]
 
 [tool.ty.terminal]

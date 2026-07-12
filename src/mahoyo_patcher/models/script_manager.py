@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 class ScriptManager:
-    def __init__(self, game_path: Path, input_file: str, output_file: str):
+    def __init__(self, game_path: Path, input_file: str, output_file: str) -> None:
         self.input_path: Path = game_path / input_file
         self.output_path: Path = game_path / output_file
 

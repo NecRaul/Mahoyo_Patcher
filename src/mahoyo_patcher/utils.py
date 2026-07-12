@@ -4,7 +4,7 @@ from importlib.resources import as_file, files
 from importlib.resources.abc import Traversable
 from pathlib import Path
 
-_resource_stack = ExitStack()
+_resource_stack: ExitStack[bool | None] = ExitStack()
 
 
 def get_resource_path(package: str, resource: str) -> Path:

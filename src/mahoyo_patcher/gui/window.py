@@ -40,7 +40,7 @@ class Window(QWidget):
         self.try_autodetect()
 
     def build_ui(self) -> None:
-        layout = QVBoxLayout(self)
+        layout: QVBoxLayout = QVBoxLayout(self)
 
         # Path display
         self.folder_label: QLabel = QLabel("No game folder selected")
@@ -123,8 +123,8 @@ class Window(QWidget):
 
     def validate_and_set_path(self, game_path: Path) -> None:
         self.folder_label.setText(str(game_path))
-        hfa_path: Path = game_path / HFA_FILE
-        if not hfa_path.is_file():
+        hfa_path: Path | None = game_path / HFA_FILE
+        if hfa_path and not hfa_path.is_file():
             self.game_path = None
             self.hfa_path = None
             self.patch_btn.setEnabled(False)
